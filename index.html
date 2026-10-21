@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Student Task Manager helps students organize assignments, deadlines, and study priorities." />
+  <title>StudyFlow — Student Task Manager</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="StudyFlow home"><span class="brand-mark">S</span><span>StudyFlow</span></a>
+      <p class="nav-label">WORKSPACE</p>
+      <nav aria-label="Main navigation">
+        <button class="nav-item active" data-filter="all"><span>▦</span> All tasks <span class="nav-count" id="allCount">0</span></button>
+        <button class="nav-item" data-filter="today"><span>◷</span> Due today</button>
+        <button class="nav-item" data-filter="upcoming"><span>▣</span> Upcoming</button>
+        <button class="nav-item" data-filter="completed"><span>✓</span> Completed</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="tip-card"><span class="tip-icon">✦</span><strong>Small steps add up.</strong><p>Focus on one task at a time. You’ve got this!</p></div>
+        <div class="profile"><div class="avatar">S</div><div><strong>Student</strong><small>Personal workspace</small></div></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark">S</span> StudyFlow</div>
+        <div class="date-label" id="dateLabel"></div>
+        <button class="primary-btn" id="openAddBtn"><span>＋</span> Add task</button>
+      </header>
+
+      <section class="welcome">
+        <div><p class="eyebrow">YOUR STUDY SPACE</p><h1 id="greeting">Let's make today count.</h1><p class="subheading">Plan your work, stay focused, and make progress.</p></div>
+        <div class="welcome-art" aria-hidden="true"><span class="sun">✦</span><span class="art-book">▤</span><span class="art-spark">✧</span></div>
+      </section>
+
+      <section class="stats-grid" aria-label="Task summary">
+        <article class="stat-card"><div class="stat-top"><span>Total tasks</span><span class="stat-icon purple">▦</span></div><strong id="totalStat">0</strong><small>Tasks in your workspace</small></article>
+        <article class="stat-card"><div class="stat-top"><span>In progress</span><span class="stat-icon blue">◷</span></div><strong id="progressStat">0</strong><small>Still on your list</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Completed</span><span class="stat-icon green">✓</span></div><strong id="completedStat">0</strong><small>Great work so far</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Completion</span><span class="stat-icon orange">↗</span></div><strong id="completionStat">0%</strong><div class="progress-track"><span id="completionBar"></span></div></article>
+      </section>
+
+      <section class="task-section">
+        <div class="section-heading"><div><p class="eyebrow">YOUR WORKLOAD</p><h2 id="listTitle">All tasks</h2></div><span class="task-total" id="visibleCount">0 tasks</span></div>
+        <div class="toolbar">
+          <label class="search-box"><span>⌕</span><input type="search" id="searchInput" placeholder="Search tasks..." aria-label="Search tasks" /></label>
+          <select id="priorityFilter" aria-label="Filter by priority"><option value="all">All priorities</option><option value="High">High priority</option><option value="Medium">Medium priority</option><option value="Low">Low priority</option></select>
+          <select id="sortSelect" aria-label="Sort tasks"><option value="date">Sort: Due date</option><option value="priority">Sort: Priority</option><option value="created">Sort: Recently added</option></select>
+        </div>
+        <div id="taskList" class="task-list"></div>
+        <div id="emptyState" class="empty-state hidden"><div class="empty-icon">✦</div><h3 id="emptyTitle">Your space is clear</h3><p id="emptyText">Add a task to get started with your study plan.</p><button class="primary-btn" id="emptyAddBtn">＋ Create a task</button></div>
+      </section>
+      <footer>Made for focused learning <span>✦</span> Your tasks stay in this browser.</footer>
+    </main>
+  </div>
+
+  <dialog id="taskDialog" class="task-dialog">
+    <form id="taskForm">
+      <div class="dialog-heading"><div><p class="eyebrow">STAY ORGANIZED</p><h2 id="dialogTitle">Create a task</h2></div><button type="button" class="icon-btn" id="closeDialogBtn" aria-label="Close dialog">✕</button></div>
+      <input type="hidden" id="taskId" />
+      <label class="field-label" for="taskTitle">Task title <span>*</span></label>
+      <input class="text-field" id="taskTitle" maxlength="100" placeholder="e.g. Complete Data Structures assignment" required />
+      <label class="field-label" for="taskDescription">Description <small>(optional)</small></label>
+      <textarea class="text-field" id="taskDescription" rows="3" maxlength="400" placeholder="Add a few details..."></textarea>
+      <div class="form-row">
+        <div><label class="field-label" for="taskDue">Due date <span>*</span></label><input class="text-field" type="date" id="taskDue" required /></div>
+        <div><label class="field-label" for="taskPriority">Priority</label><select class="text-field" id="taskPriority"><option>Medium</option><option>High</option><option>Low</option></select></div>
+      </div>
+      <label class="field-label" for="taskCategory">Subject / category</label>
+      <select class="text-field" id="taskCategory"><option>Study</option><option>Assignment</option><option>Exam preparation</option><option>Project</option><option>Personal</option></select>
+      <div class="dialog-actions"><button type="button" class="secondary-btn" id="cancelBtn">Cancel</button><button type="submit" class="primary-btn" id="saveTaskBtn">Save task</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
